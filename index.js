@@ -9,8 +9,8 @@ const app = express();
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-
-app.listen(3000, () => console.log('listening at 3000'));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log('listening at ' + PORT));
 app.get('/', (req, res) => res.send("Hi"));
 // create api capture web page
 app.post('/api/capture', async (req, res) => {
