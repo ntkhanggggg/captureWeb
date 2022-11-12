@@ -5,4 +5,5 @@ RUN sudo apt-get install -y nodejs
 WORKDIR /usr/app
 COPY ./ /usr/app
 RUN npm install
+RUN chmod 755 /start.sh
 CMD /start.sh
