@@ -5,4 +5,4 @@ RUN sudo apt-get install -y nodejs
 WORKDIR /usr/app
 COPY ./ /usr/app
 RUN npm install
-RUN pwd
+CMD ../../start.sh
