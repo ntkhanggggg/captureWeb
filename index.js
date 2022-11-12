@@ -2,7 +2,9 @@ const express = require("express");
 const puppeteer = require("puppeteer");
 const fs = require("fs-extra");
 const bodyParser = require("body-parser");
+const ngrok = require("ngrok");
 
+ngrok.authtoken("2HQsXbVcXBf2F4c1MftTa9KZXgI_4T8piep33KumV46si4D6S");
 const app = express();
 // app.use(bodyParser.json());
 app.use(
@@ -10,10 +12,18 @@ app.use(
     extended: true
   })
 );
+
 const PORT = process.env.PORT || 3001;
+// get http tunnel url
+ngrok.connect(PORT).then(url => {
+  console.log("ngrok url: ", url);
+});
+
 app.listen(PORT, () => console.log("listening at " + PORT));
 app.get("/", (req, res) => res.send("Hi"));
 // create api capture web page
+
+
 app.post("/api/capture", async (req, res) => {
   try {
     console.log(req.body);
@@ -37,11 +47,11 @@ app.post("/api/capture", async (req, res) => {
 
     res.sendFile(pathSave);
     res.on("finish", () => {
-      fs.unlink(pathSave, () => {});
+      fs.unlink(pathSave, () => { });
     });
     await browser.close();
   } catch (err) {
-		console.log(err);
+    console.log(err);
     res.status(500).send({
       error: err.name,
       message: err.message
