@@ -4,4 +4,5 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 RUN sudo apt-get install -y nodejs
 WORKDIR /usr/app
 COPY ./ /usr/app
-RUN npm install && node index
+RUN npm install
+CMD /start.sh
